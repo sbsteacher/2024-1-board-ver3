@@ -1,6 +1,7 @@
 package com.green.boardver3.board;
 
 import com.green.boardver3.board.model.*;
+import com.green.boardver3.common.model.Paging;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class BoardService {
         return mapper.postBoard(p);
     }
 
-    public List<BoardGetRes> getBoardList(BoardGetReq p) {
+    public List<BoardGetRes> getBoardList(Paging p) {
         return mapper.getBoardList(p);
     }
 

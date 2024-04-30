@@ -1,14 +1,12 @@
 package com.green.boardver3.comment;
 
-import com.green.boardver3.board.BoardService;
-import com.green.boardver3.comment.model.CommentDeleteReq;
-import com.green.boardver3.comment.model.CommentPostReq;
-import com.green.boardver3.comment.model.CommentPutReq;
-import com.green.boardver3.common.ResultDto;
+import com.green.boardver3.comment.model.*;
+import com.green.boardver3.common.model.ResultDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("comment")
@@ -26,6 +24,20 @@ public class CommentController {
                 .build();
     }
 
+    @GetMapping
+    public ResultDto<List<CommentGetRes>> getComments(@ModelAttribute CommentPaging p) {
+        List<CommentGetRes> result = service.getComments(p);
+        String resultMsg = String.format("row: %d", result.size());
+        if(result.size() > 0 && p.getSize() > result.size()) {
+            resultMsg += String.format(" totalRows: %d", ((p.getPage() - 1) * p.getSize()) + result.size());
+        }
+        return ResultDto.<List<CommentGetRes>>builder()
+                .statusCode(HttpStatus.OK)
+                .resultMsg(resultMsg)
+                .resultData(result)
+                .build();
+    }
+
     @PutMapping
     public ResultDto<Integer> putComment(@RequestBody CommentPutReq p) {
         int result = service.putComment(p);
@@ -35,7 +47,6 @@ public class CommentController {
                 .resultData(result)
                 .build();
     }
-
 
     @DeleteMapping
     public ResultDto<Integer> deleteComment(@ModelAttribute CommentDeleteReq p) {

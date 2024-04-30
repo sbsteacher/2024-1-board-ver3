@@ -1,10 +1,10 @@
 package com.green.boardver3.comment;
 
-import com.green.boardver3.comment.model.CommentDeleteReq;
-import com.green.boardver3.comment.model.CommentPostReq;
-import com.green.boardver3.comment.model.CommentPutReq;
+import com.green.boardver3.comment.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -13,6 +13,10 @@ public class CommentService {
 
     public int postComment(CommentPostReq p) {
         return mapper.postComment(p);
+    }
+
+    public List<CommentGetRes> getComments(CommentPaging p) {
+        return mapper.getComments(p);
     }
 
     public int putComment(CommentPutReq p) {

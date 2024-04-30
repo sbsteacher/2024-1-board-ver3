@@ -13,4 +13,6 @@ public class BoardDetailGetRes {
     private String writerNm;
     private int hits;
     private String createdAt;
+
+
 }

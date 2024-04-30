@@ -8,6 +8,17 @@
              , board_id = #{boardId}
     </insert>
 
+    <select id="getComments">
+        SELECT A.comment_id AS commentId, A.contents, A.writer_id AS writerId
+             , B.nm AS writerNm, A.created_at AS createdAt
+        FROM comment A
+        INNER JOIN user B
+        ON A.writer_id = B.user_id
+        WHERE A.board_id = #{boardId}
+        ORDER BY A.comment_id
+        LIMIT #{startIdx}, #{len}
+    </select>
+
     <update id="putComment">
         UPDATE comment
            SET contents = #{contents}

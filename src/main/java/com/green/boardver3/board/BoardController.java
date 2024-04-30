@@ -1,7 +1,8 @@
 package com.green.boardver3.board;
 
 import com.green.boardver3.board.model.*;
-import com.green.boardver3.common.ResultDto;
+import com.green.boardver3.common.model.ResultDto;
+import com.green.boardver3.common.model.Paging;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class BoardController {
     }
 
     @GetMapping
-    public ResultDto<List<BoardGetRes>> getBoardList(@ModelAttribute BoardGetReq p) {
+    public ResultDto<List<BoardGetRes>> getBoardList(@ModelAttribute Paging p) {
         List<BoardGetRes> list = service.getBoardList(p);
 
         return ResultDto.<List<BoardGetRes>>builder()
