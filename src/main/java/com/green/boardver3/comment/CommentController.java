@@ -3,6 +3,7 @@ package com.green.boardver3.comment;
 import com.green.boardver3.board.BoardService;
 import com.green.boardver3.comment.model.CommentDeleteReq;
 import com.green.boardver3.comment.model.CommentPostReq;
+import com.green.boardver3.comment.model.CommentPutReq;
 import com.green.boardver3.common.ResultDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,17 @@ public class CommentController {
                 .resultData(result)
                 .build();
     }
+
+    @PutMapping
+    public ResultDto<Integer> putComment(@RequestBody CommentPutReq p) {
+        int result = service.putComment(p);
+        return ResultDto.<Integer>builder()
+                .statusCode(HttpStatus.OK)
+                .resultMsg(HttpStatus.OK.toString())
+                .resultData(result)
+                .build();
+    }
+
 
     @DeleteMapping
     public ResultDto<Integer> deleteComment(@ModelAttribute CommentDeleteReq p) {

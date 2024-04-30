@@ -3,15 +3,22 @@
 <mapper namespace="com.green.boardver3.comment.CommentMapper">
     <insert id="postComment">
         INSERT INTO comment
-        SET contents = #{contents}
-          , writer_id = #{writerId}
-          , board_id = #{boardId}
+           SET contents = #{contents}
+             , writer_id = #{writerId}
+             , board_id = #{boardId}
     </insert>
+
+    <update id="putComment">
+        UPDATE comment
+           SET contents = #{contents}
+         WHERE comment_id = #{commentId}
+           AND writer_id = #{writerId}
+    </update>
 
     <delete id="deleteComment">
         DELETE FROM comment
-        WHERE comment_id = #{commentId}
-        AND writer_id = #{writerId}
+         WHERE comment_id = #{commentId}
+           AND writer_id = #{writerId}
     </delete>
 
 </mapper>
