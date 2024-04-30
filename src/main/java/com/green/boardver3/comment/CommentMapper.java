@@ -9,6 +9,7 @@ import java.util.List;
 public interface CommentMapper {
     int postComment(CommentPostReq p);
     List<CommentGetRes> getComments(CommentPaging p);
+    int getTotalCommentPage(CommentPaging p);
     int putComment(CommentPutReq p);
     int deleteComment(CommentDeleteReq p);
 }

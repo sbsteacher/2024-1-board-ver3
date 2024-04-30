@@ -19,6 +19,12 @@
         LIMIT #{startIdx}, #{len}
     </select>
 
+    <select id="getTotalCommentPage">
+        SELECT CEIL(COUNT(comment_id) / #{len})
+        FROM comment
+        WHERE board_id = #{boardId}
+    </select>
+
     <update id="putComment">
         UPDATE comment
            SET contents = #{contents}

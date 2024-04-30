@@ -29,7 +29,7 @@ public class CommentController {
         List<CommentGetRes> result = service.getComments(p);
         String resultMsg = String.format("row: %d", result.size());
         if(result.size() > 0 && p.getSize() > result.size()) {
-            resultMsg += String.format(" totalRows: %d", ((p.getPage() - 1) * p.getSize()) + result.size());
+            resultMsg += String.format(" totalRows: %d", (p.getPage() - 1) * p.getSize() + result.size());
         }
         return ResultDto.<List<CommentGetRes>>builder()
                 .statusCode(HttpStatus.OK)
