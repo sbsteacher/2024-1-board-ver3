@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.boardver3.comment.CommentMapper">
+    <insert id="postComment">
+        INSERT INTO comment
+        SET contents = #{contents}
+          , writer_id = #{writerId}
+          , board_id = #{boardId}
+    </insert>
+
+    <delete id="deleteComment">
+        DELETE FROM comment
+        WHERE comment_id = #{commentId}
+        AND writer_id = #{writerId}
+    </delete>
+
+</mapper>
