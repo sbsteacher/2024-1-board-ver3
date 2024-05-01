@@ -7,18 +7,24 @@ import com.green.boardver3.comment.model.CommentPaging;
 import com.green.boardver3.common.GlobalConst;
 import com.green.boardver3.common.model.Paging;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardMapper mapper;
     private final CommentMapper commentMapper;
 
-    public int postBoard(BoardPostReq p) {
-        return mapper.postBoard(p);
+    public long postBoard(BoardPostReq p) {
+        log.info("(1) p.boardId: {}", p.getBoardId());
+        int result = mapper.postBoard(p);
+        log.info("(2) p.boardId: {}", p.getBoardId());
+        if(result == 0) { return 0L; }
+        return p.getBoardId();
     }
 
     public List<BoardGetRes> getBoardList(Paging p) {
@@ -39,6 +45,7 @@ public class BoardService {
             result.setTotalCommentPage(1);
         } else {
             int totalCommentPage = commentMapper.getTotalCommentPage(paging);
+            result.setTotalCommentPage(totalCommentPage);
         }
         //result.getComments().addAll(comments);
         return result;

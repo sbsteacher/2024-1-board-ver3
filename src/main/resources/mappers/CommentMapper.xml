@@ -21,8 +21,8 @@
 
     <select id="getTotalCommentPage">
         SELECT CEIL(COUNT(comment_id) / #{len})
-        FROM comment
-        WHERE board_id = #{boardId}
+          FROM comment
+         WHERE board_id = #{boardId}
     </select>
 
     <update id="putComment">

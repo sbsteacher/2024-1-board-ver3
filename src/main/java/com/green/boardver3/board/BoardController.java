@@ -3,27 +3,34 @@ package com.green.boardver3.board;
 import com.green.boardver3.board.model.*;
 import com.green.boardver3.common.model.ResultDto;
 import com.green.boardver3.common.model.Paging;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("board")
+@Tag(name = "Board (게시판)", description = "게시판 CRUD")
 public class BoardController {
     private final BoardService service;
 
-
     @PostMapping
-    public ResultDto<Integer> postBoard(@RequestBody BoardPostReq p) {
-        int result = service.postBoard(p);
+    @Operation(summary = "게시글 등록", description = "게시글 등록을 할 수 있습니다.")
+    public ResultDto<Long> postBoard(@RequestBody BoardPostReq p) {
+        log.info("p의 파라미터: {}", p);
 
-        return ResultDto.<Integer>builder()
+        long result = service.postBoard(p);
+
+        return ResultDto.<Long>builder()
                 .statusCode(HttpStatus.OK)
                 .resultMsg("")
-                .resultData(result).build();
+                .resultData(result)
+                .build();
     }
 
     @GetMapping
@@ -33,7 +40,8 @@ public class BoardController {
         return ResultDto.<List<BoardGetRes>>builder()
                 .statusCode(HttpStatus.OK)
                 .resultMsg(String.format("rowCount: %d", list.size()))
-                .resultData(list).build();
+                .resultData(list)
+                .build();
     }
 
     //http://localhost:8080/board/203

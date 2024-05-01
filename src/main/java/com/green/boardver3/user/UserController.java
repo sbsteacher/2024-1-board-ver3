@@ -28,22 +28,8 @@ public class UserController {
     }
 
     @PostMapping("signin")
-    public ResultDto<Integer> postSignin(@RequestBody SignInPostReq p) {
-        int result = service.postSignIn(p);
-        //1 > 로그인 성공
-        //2 > 아이디를 확인해 주세요.
-        //3 > 비밀번호를 확인해 주세요.
-        String msg = switch (result) {
-            case 1 -> "로그인 성공";
-            case 2 -> "아이디를 확인해 주세요.";
-            case 3 -> "비밀번호를 확인해 주세요.";
-            default -> "알수 없는 에러 발생";
-        };
-        return ResultDto.<Integer>builder()
-                .statusCode(HttpStatus.OK)
-                .resultMsg(msg)
-                .resultData(result).build();
-
+    public ResultDto<Long> postSignin(@RequestBody SignInPostReq p) {
+        return service.postSignIn(p);
     }
 
     @PatchMapping("password")

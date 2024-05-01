@@ -1,11 +1,13 @@
 package com.green.boardver3.user;
 
+import com.green.boardver3.common.model.ResultDto;
 import com.green.boardver3.user.model.ChangePasswordPatchReq;
 import com.green.boardver3.user.model.SignInPostReq;
 import com.green.boardver3.user.model.UserEntity;
 import com.green.boardver3.user.model.UserPostReq;
 import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,14 +23,26 @@ public class UserService {
     }
 
     //1: 로그인 성공, 2: 아이디 없음, 3: 비밀번호 다름
-    public int postSignIn(SignInPostReq p) {
+    public ResultDto<Long> postSignIn(SignInPostReq p) {
         UserEntity entity = mapper.getUserById(p.getUid());
-        if(entity == null) { return 2; }
-
-        if(BCrypt.checkpw(p.getUpw(), entity.getUpw())) {
-            return 1;
+        if(entity == null) { //아이디 없음
+            return ResultDto.<Long>builder()
+                .statusCode(HttpStatus.NOT_FOUND)
+                .resultMsg("아이디를 확인해 주세요.")
+                .resultData(0L)
+                .build();
+        } else if(!BCrypt.checkpw(p.getUpw(), entity.getUpw())) {
+            return ResultDto.<Long>builder()
+                    .statusCode(HttpStatus.NOT_FOUND)
+                    .resultMsg("비밀번호를 확인해 주세요.")
+                    .resultData(0L)
+                    .build();
         }
-        return 3;
+        return ResultDto.<Long>builder()
+                .statusCode(HttpStatus.OK)
+                .resultMsg("로그인 성공")
+                .resultData(entity.getUserId())
+                .build();
     }
 
     //1: 비밀번호 변경 성공, 2: 아이디를 확인해 주세요. 3: 기존 비밀번호를 확인해 주세요.
