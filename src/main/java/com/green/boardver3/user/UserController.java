@@ -4,6 +4,7 @@ import com.green.boardver3.common.model.ResultDto;
 import com.green.boardver3.user.model.ChangePasswordPatchReq;
 import com.green.boardver3.user.model.SignInPostReq;
 import com.green.boardver3.user.model.UserPostReq;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,7 @@ public class UserController {
     }
 
     @PatchMapping("password")
-    public ResultDto<Integer> patchPassword(@RequestBody ChangePasswordPatchReq p) {
+    public ResultDto<Integer> patchPassword(@Valid @RequestBody ChangePasswordPatchReq p) {
         int result = service.patchPassword(p);
 
         return ResultDto.<Integer>builder()
