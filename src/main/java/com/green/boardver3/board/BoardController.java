@@ -4,6 +4,7 @@ import com.green.boardver3.board.model.*;
 import com.green.boardver3.common.model.ResultDto;
 import com.green.boardver3.common.model.Paging;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

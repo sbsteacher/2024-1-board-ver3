@@ -15,9 +15,11 @@ springdoc:
   api-docs:
     version: openapi_3_1
   swagger-ui:
-    path: /swagger
-    operations-sorter: method
+    path: /swagger # Swagger page로 redirect
+    operations-sorter: method #alpha(default): url 기준 정렬, method: http-method 기준 정렬
     default-model-expand-depth: 10
+    default-models-expand-depth: 10
+    display-request-duration: true # try it out 을 했을 때 request duration(처리 소요시간) 을 추가로 찍어줌
     cache:
       disabled: true
 

@@ -12,6 +12,7 @@ import lombok.ToString;
 @ToString
 public class BoardPostReq {
     @JsonIgnore
+    //@Schema(hidden = true)
     private long boardId;
     @Schema(example = "제목 테스트", description = "글 제목", requiredMode = Schema.RequiredMode.REQUIRED)
     private String title;

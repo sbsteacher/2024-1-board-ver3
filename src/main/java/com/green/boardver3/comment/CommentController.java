@@ -3,11 +3,14 @@ package com.green.boardver3.comment;
 import com.green.boardver3.comment.model.*;
 import com.green.boardver3.common.model.ResultDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("comment")
 @RequiredArgsConstructor
@@ -25,7 +28,8 @@ public class CommentController {
     }
 
     @GetMapping
-    public ResultDto<List<CommentGetRes>> getComments(@ModelAttribute CommentPaging p) {
+    public ResultDto<List<CommentGetRes>> getComments(@ParameterObject @ModelAttribute CommentPaging p) {
+        log.info("CommentPaging: {}", p);
         List<CommentGetRes> result = service.getComments(p);
         String resultMsg = String.format("row: %d", result.size());
         if(result.size() > 0 && p.getSize() > result.size()) {
